@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "description": "Auto-classification rules for Gowid expenses",
-  "rules_count": 286,
+  "rules_count": 289,
   "rules": [
     {
       "store_pattern": "자동결제_3",
@@ -2004,6 +2004,27 @@
       "purpose_name": "US-보험비",
       "confidence": 1.0,
       "requirement_answer": "미국 출장 여행자보험"
+    },
+    {
+      "store_pattern": "우버택시",
+      "purpose_id": 12551,
+      "purpose_name": "업무교통비",
+      "confidence": 0.9,
+      "requirement_answer": null
+    },
+    {
+      "store_pattern": "우버택시(법인)",
+      "purpose_id": 12551,
+      "purpose_name": "업무교통비",
+      "confidence": 0.9,
+      "requirement_answer": null
+    },
+    {
+      "store_pattern": "ETOLLBGT",
+      "purpose_id": 94179,
+      "purpose_name": "US-여비교통비",
+      "confidence": 1.0,
+      "requirement_answer": "미국 톨게이트"
     }
   ]
 }

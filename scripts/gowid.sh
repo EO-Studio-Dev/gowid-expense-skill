@@ -162,6 +162,7 @@ cmd_submit() {
   local purpose_id="$2"
   local memo="${3:-}"
   local participants="${4:-}"
+  local dry_run="${5:-}"
 
   # Pre-check
   local detail
@@ -171,6 +172,12 @@ cmd_submit() {
 
   if [ "$status" != "NOT_SUBMITTED" ]; then
     echo "{\"error\": \"Already $status\", \"expenseId\": $eid}"
+    exit 0
+  fi
+
+  # DRY RUN: show what would happen without actually submitting
+  if [ "$dry_run" = "--dry-run" ]; then
+    echo "{\"dry_run\": true, \"expenseId\": $eid, \"purposeId\": $purpose_id, \"memo\": \"$memo\", \"participants\": \"$participants\", \"status\": \"would_submit\"}"
     exit 0
   fi
 
