@@ -154,19 +154,22 @@ def cmd_my_expenses() -> None:
             break
         page += 1
 
-    # 본인 경비만 필터
+    # 본인 경비만 필터 (cardAlias에 사용자 이름 포함 여부로 판별)
     my_expenses = []
     for e in all_expenses:
-        if e.get("cardUserName") == user_name and e.get("expenseDate", "") >= cutoff:
-            card_num = e.get("cardNumber", "") or ""
+        alias = e.get("cardAlias") or ""
+        if user_name in alias and e.get("expenseDate", "") >= cutoff:
+            short_card = e.get("shortCardNumber") or ""
             my_expenses.append({
                 "expenseId": e.get("expenseId"),
                 "storeName": e.get("storeName", ""),
                 "useAmount": e.get("useAmount", 0),
+                "krwAmount": e.get("krwAmount", 0),
                 "currency": e.get("currency", "KRW"),
                 "expenseDate": e.get("expenseDate", ""),
                 "expenseTime": e.get("expenseTime", ""),
-                "cardNumber": card_num[-4:] if card_num else "",
+                "cardNumber": short_card,
+                "suggestedPurpose": (e.get("recommendedPurposeList") or [{}])[0].get("name", ""),
             })
 
     my_expenses.sort(key=lambda x: x["expenseDate"], reverse=True)
