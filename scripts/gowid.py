@@ -92,6 +92,10 @@ def _api_put(path: str, body: dict) -> dict | None:
 
 
 def _git_email() -> str:
+    # GOWID_EMAIL 환경변수 우선 (git email과 Gowid 등록 이메일이 다를 때)
+    env_email = os.environ.get("GOWID_EMAIL", "").strip()
+    if env_email:
+        return env_email
     try:
         result = subprocess.run(
             ["git", "config", "user.email"],
